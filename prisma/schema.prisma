@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum BadgeType {
+  EARLY_MEMBER
+  CONNECTED
+  COMMUNITY_BUILDER
+  PIONEER
+  VERIFIED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  username      String?   @unique
+  displayName   String?
+  bio           String?
+  avatar        String?
+  points        Int       @default(0)
+  level         Int       @default(1)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  wallets       Wallet[]
+  badges        UserBadge[]
+  activities    Activity[]
+  pointHistory  PointTransaction[]
+  
+  followers     Follow[]    @relation("following")
+  following     Follow[]    @relation("follower")
+  notifications Notification[]
+}
+
+model Account {
+  id                String   @id @default(cuid())
+  userId            String
+  type              String
+  providerAccountId String   @unique
+  createdAt         DateTime @default(now())
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Wallet {
+  id            String   @id @default(cuid())
+  userId        String
+  address       String   @unique
+  network       String   @default("Ethereum")
+  connectedAt   DateTime @default(now())
+  verifiedAt    DateTime?
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Follow {
+  id          String   @id @default(cuid())
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
+  follower    User     @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User     @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
+  @@unique([followerId, followingId])
+}
+
+model Activity {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  metadata  Json?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PointTransaction {
+  id        String   @id @default(cuid())
+  userId    String
+  amount    Int
+  reason    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Badge {
+  id        String    @id @default(cuid())
+  type      BadgeType @unique
+  name      String
+  description String
+  users     UserBadge[]
+}
+
+model UserBadge {
+  userId   String
+  badgeId  String
+  earnedAt DateTime @default(now())
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge    Badge  @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  @@id([userId, badgeId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  content   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
