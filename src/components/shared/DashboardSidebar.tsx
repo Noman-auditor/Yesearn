@@ -15,10 +15,8 @@ const navItems = [
 
 export default function DashboardSidebar() {
   const pathname = usePathname();
-
   return (
     <>
-      {/* Desktop Sidebar */}
       <aside className="hidden md:flex flex-col w-64 h-screen sticky top-0 border-r border-white/10 p-4 space-y-2">
         {navItems.map((item) => (
           <Link key={item.name} href={item.href} className={cn(
@@ -29,8 +27,6 @@ export default function DashboardSidebar() {
           </Link>
         ))}
       </aside>
-
-      {/* Mobile Bottom Nav */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0A0A0B]/90 backdrop-blur-xl border-t border-white/10 flex justify-around py-2">
         {navItems.map((item) => (
           <Link key={item.name} href={item.href} className={cn(
