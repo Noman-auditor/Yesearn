@@ -9,9 +9,7 @@ export default function AuthErrorPage() {
         <AlertTriangle className="h-12 w-12 text-red-500 mx-auto" />
         <h1 className="text-2xl font-bold">Authentication Failed</h1>
         <p className="text-gray-400">There was an error connecting your X account. Please try again.</p>
-        <Link href="/api/auth/signin">
-          <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white w-full">Retry Connection</Button>
-        </Link>
+        <Link href="/api/auth/signin"><Button className="w-full">Retry Connection</Button></Link>
       </div>
     </div>
   );
