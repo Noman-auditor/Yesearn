@@ -85,11 +85,11 @@ model PointTransaction {
 }
 
 model Badge {
-  id        String    @id @default(cuid())
-  type      BadgeType @unique
-  name      String
+  id          String    @id @default(cuid())
+  type        BadgeType @unique
+  name        String
   description String
-  users     UserBadge[]
+  users       UserBadge[]
 }
 
 model UserBadge {
