@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Activity, Twitter, Wallet, UserPlus, Award } from "lucide-react";
+import { timeAgo } from "@/lib/utils";
 
 export default async function ActivityFeed({ userId }: { userId: string }) {
   const activities = await prisma.activity.findMany({
@@ -17,7 +18,7 @@ export default async function ActivityFeed({ userId }: { userId: string }) {
   };
 
   return (
-    <div className="glass-card p-6 mt-8">
+    <div className="glass-card p-6 mt-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl">
       <h3 className="text-xl font-bold mb-4">Recent Activity</h3>
       <div className="space-y-4">
         {activities.length === 0 ? (
@@ -26,8 +27,8 @@ export default async function ActivityFeed({ userId }: { userId: string }) {
           activities.map((act) => (
             <div key={act.id} className="flex items-center gap-4 text-sm border-b border-white/5 pb-3">
               {getIcon(act.type)}
-              <span className="text-gray-300 flex-grow">{act.type.replace(/_/g, ' ').toLowerCase()}</span>
-              <span className="text-gray-500 text-xs">{new Date(act.createdAt).toLocaleDateString()}</span>
+              <span className="text-gray-300 flex-grow capitalize">{act.type.replace(/_/g, ' ').toLowerCase()}</span>
+              <span className="text-gray-500 text-xs">{timeAgo(act.createdAt)}</span>
             </div>
           ))
         )}
