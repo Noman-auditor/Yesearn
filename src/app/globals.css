@@ -17,9 +17,3 @@ body {
 .glass-card {
   @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg;
 }
-
-.gradient-border {
-  border: 1px solid transparent;
-  background: linear-gradient(#0A0A0B, #0A0A0B) padding-box,
-              linear-gradient(90deg, #3B82F6, #8B5CF6) border-box;
-}
