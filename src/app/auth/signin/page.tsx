@@ -9,13 +9,8 @@ export default function SignInPage() {
       <div className="glass-card p-8 rounded-2xl max-w-md w-full text-center space-y-6">
         <h1 className="text-2xl font-bold">Welcome to Web3Community</h1>
         <p className="text-gray-400">Connect your X account to join the community and build your reputation.</p>
-        
-        <Button 
-          onClick={() => signIn("twitter", { callbackUrl: "/dashboard" })}
-          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:opacity-90"
-        >
-          <Twitter className="mr-2 h-5 w-5" />
-          Connect with X
+        <Button onClick={() => signIn("twitter", { callbackUrl: "/dashboard" })} className="w-full">
+          <Twitter className="mr-2 h-5 w-5" /> Connect with X
         </Button>
       </div>
     </div>
