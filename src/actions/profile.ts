@@ -16,13 +16,10 @@ export async function updateProfile(values: z.infer<typeof ProfileSchema>) {
   if (!session?.user?.id) throw new Error("Unauthorized");
 
   const validatedFields = ProfileSchema.safeParse(values);
-  if (!validatedFields.success) {
-    throw new Error("Invalid fields");
-  }
+  if (!validatedFields.success) throw new Error("Invalid fields");
 
   const { displayName, username, bio } = validatedFields.data;
 
-  // Check if username is taken by someone else
   const existingUser = await prisma.user.findUnique({ where: { username } });
   if (existingUser && existingUser.id !== session.user.id) {
     throw new Error("Username already taken");
@@ -33,8 +30,6 @@ export async function updateProfile(values: z.infer<typeof ProfileSchema>) {
     data: { displayName, username, bio },
   });
 
-  // Award points for completing profile (Logic can be expanded)
   revalidatePath("/settings");
   revalidatePath("/profile");
 }
-
