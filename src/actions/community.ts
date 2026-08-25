@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
+import { awardPoints } from "./points";
 
 export async function toggleFollow(targetUserId: string) {
   const session = await getServerSession(authOptions);
@@ -16,12 +17,11 @@ export async function toggleFollow(targetUserId: string) {
   if (existingFollow) {
     await prisma.follow.delete({ where: { id: existingFollow.id } });
   } else {
-    // Secure transaction: Follow + Award Points + Record Activity
     await prisma.$transaction([
       prisma.follow.create({ data: { followerId: session.user.id, followingId: targetUserId } }),
-      prisma.user.update({ where: { id: session.user.id }, data: { points: { increment: 5 } } }),
-      prisma.pointTransaction.create({ data: { userId: session.user.id, amount: 5, reason: "Followed community member" } })
+      prisma.notification.create({ data: { userId: targetUserId, type: "NEW_FOLLOWER", content: "You have a new follower!" } })
     ]);
+    await awardPoints(session.user.id, 5, "Followed community member");
   }
   revalidatePath(`/users/${targetUserId}`);
 }
