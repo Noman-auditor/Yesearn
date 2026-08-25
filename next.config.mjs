@@ -4,6 +4,7 @@ const nextConfig = {
   transpilePackages: [
     '@reown/appkit',
     '@reown/appkit-adapter-wagmi',
+    '@wagmi/core',
     '@wagmi/connectors',
     '@base-org/account',
     '@coinbase/cdp-sdk'
@@ -16,11 +17,17 @@ const nextConfig = {
       '@x402/core/client': false,
       '@x402/svm/exact/client': false,
       '@x402/evm': false,
+      'accounts': false, // wagmi core internal missing module
+      '@base-org/account': false, // optional connector
+      '@metamask/connect-evm': false // optional connector
     };
     return config;
   },
   images: {
-    remotePatterns: [{ protocol: 'https', hostname: '**' }]
+    remotePatterns: [
+      { protocol: 'https', hostname: '**' }
+    ]
   }
 };
+
 export default nextConfig;
