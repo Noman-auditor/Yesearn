@@ -23,12 +23,13 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id as string;
         const dbUser = await prisma.user.findUnique({
           where: { id: token.id as string },
-          select: { points: true, level: true, username: true }
+          select: { points: true, level: true, username: true, displayName: true }
         });
         if (dbUser) {
           session.user.points = dbUser.points;
           session.user.level = dbUser.level;
           session.user.username = dbUser.username;
+          session.user.displayName = dbUser.displayName;
         }
       }
       return session;
