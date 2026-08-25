@@ -39,5 +39,17 @@
     "prisma": "5.22.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.0"
+  },
+  "allowScripts": {
+    "@prisma/client@5.22.0": true,
+    "@prisma/engines@5.22.0": true,
+    "prisma@5.22.0": true,
+    "@reown/appkit@1.8.23": true,
+    "@reown/appkit@1.7.8": true,
+    "sharp@0.33.5": true,
+    "unrs-resolver@1.12.2": true,
+    "bufferutil@4.1.0": true,
+    "keccak@3.0.4": true,
+    "utf-8-validate@5.0.10": true
   }
 }
