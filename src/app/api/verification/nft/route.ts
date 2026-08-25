@@ -13,12 +13,9 @@ export async function POST(req: Request) {
 
     const { contractAddress, tokenId } = await req.json();
     const userWallet = await prisma.wallet.findFirst({ where: { userId: session.user.id } });
-
     if (!userWallet) return NextResponse.json({ error: "No wallet connected" }, { status: 400 });
 
     const client = createPublicClient({ chain: mainnet, transport: http(process.env.ALCHEMY_RPC_URL) });
-
-    // Real on-chain verification
     const owner = await client.readContract({
       address: contractAddress,
       abi: erc721Abi,
@@ -27,10 +24,7 @@ export async function POST(req: Request) {
     });
 
     if (owner.toLowerCase() === userWallet.address.toLowerCase()) {
-      await prisma.wallet.update({
-        where: { id: userWallet.id },
-        data: { verifiedAt: new Date() }
-      });
+      await prisma.wallet.update({ where: { id: userWallet.id }, data: { verifiedAt: new Date() } });
       return NextResponse.json({ success: true, message: "NFT Verified Successfully" });
     } else {
       return NextResponse.json({ error: "Ownership verification failed" }, { status: 403 });
