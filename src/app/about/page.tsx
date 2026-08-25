@@ -4,10 +4,7 @@ export default function AboutPage() {
   return (
     <div className="container mx-auto px-4 py-16 max-w-4xl">
       <h1 className="text-4xl font-bold mb-4">About Web3 Community</h1>
-      <p className="text-xl text-gray-400 mb-12">
-        A Web3-focused community platform designed to connect people, identities, and on-chain reputation.
-      </p>
-      
+      <p className="text-xl text-gray-400 mb-12">A Web3-focused community platform designed to connect people, identities, and on-chain reputation.</p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="glass-card p-6">
           <Sparkles className="h-8 w-8 text-yellow-400 mb-4" />
