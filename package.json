@@ -1,6 +1,6 @@
 {
-  "name": "web3-app",
-  "version": "0.1.0",
+  "name": "web3-community",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
@@ -14,8 +14,6 @@
     "@reown/appkit": "^1.0.0",
     "@reown/appkit-adapter-wagmi": "^1.0.0",
     "@tanstack/react-query": "^5.59.0",
-    "@wagmi/connectors": "^8.1.0",
-    "@wagmi/core": "^3.6.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.0",
@@ -28,30 +26,18 @@
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.4",
     "viem": "^2.21.0",
-    "wagmi": "^3.7.6",
+    "wagmi": "^2.12.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "15.0.0",
     "postcss": "^8",
-    "prisma": "5.22.0",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
-  },
-  "allowScripts": {
-    "@prisma/client@5.22.0": true,
-    "@prisma/engines@5.22.0": true,
-    "prisma@5.22.0": true,
-    "@reown/appkit@1.8.23": true,
-    "@reown/appkit@1.7.8": true,
-    "sharp@0.33.5": true,
-    "unrs-resolver@1.12.2": true,
-    "bufferutil@4.1.0": true,
-    "keccak@3.0.4": true,
-    "utf-8-validate@5.0.10": true
+    "prisma": "5.22.0",
+    "eslint": "^8",
+    "eslint-config-next": "15.0.0"
   }
 }
