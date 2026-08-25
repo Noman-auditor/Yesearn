@@ -13,6 +13,9 @@ const config: Config = {
         background: "#0A0A0B",
         foreground: "#ffffff",
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      }
     },
   },
   plugins: [],
